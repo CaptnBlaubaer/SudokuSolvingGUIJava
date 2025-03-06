@@ -4,21 +4,26 @@ import java.util.ArrayList;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class GUI {
 
     public BorderPane borderPane;
     public ArrayList<TextField> textFields;
     public ArrayList<Button> buttons;
+    public Label label;
 
     public GUI(){
         this.borderPane = new BorderPane();
         this.textFields = createTextFields();
         this.buttons = createButtons();
+        this.label = new Label();
+        
 
         addElements();
 
@@ -32,22 +37,26 @@ public class GUI {
         grid.setHgap(10);
         grid.setVgap(10);
 
-        HBox hbox = new HBox ();
-        hbox.setAlignment(Pos.CENTER);
-        hbox.setSpacing(20);
-
-        this.borderPane.setCenter(grid);
-        this.borderPane.setBottom(hbox);       
-
-        //generates a 9x9 matrix and adds to each position a textField for sudoku input
+        //generates a 9x9 matrix  in grid pane
+        //each position contains a textField for sudoku input
         for (int i = 0; i < 9; i++){
             for (int j = 0; j < 9; j++){
                 grid.add(this.textFields.get(j*9+i), i, j);
             }
         }
+        
+        HBox hbox = new HBox ();
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(20);
         //adds the buttons below the textfields
-
         hbox.getChildren().addAll(this.buttons);
+
+        VBox vbox = new VBox();
+        vbox.setAlignment(Pos.CENTER);
+        vbox.getChildren().addAll(this.label, hbox);
+
+        this.borderPane.setCenter(grid);
+        this.borderPane.setBottom(vbox);        
     }
 
     //creates a list with 81 Textfields
@@ -107,5 +116,9 @@ public class GUI {
 
     public ArrayList<Button> getButtons(){
         return this.buttons;
+    }
+
+    public Label getLabel(){
+        return this.label;
     }
 }

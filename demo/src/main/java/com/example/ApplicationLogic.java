@@ -49,7 +49,7 @@ public class ApplicationLogic {
             index = moveAndIncrement(index);
         }
 
-        System.out.println(loopCount);
+        System.out.println("Iterations: " + loopCount);
 
         return this.numbers;
     }
